@@ -4,6 +4,7 @@ import numpy as np
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from joblib import load
+from lib_ml_mellekoper import preprocess #import is broken
 
 app = Flask(__name__)
 
@@ -11,14 +12,13 @@ app = Flask(__name__)
 model = tf.keras.models.load_model('model.h5') 
 
 #consider saving tokenizer to dvc instead of importing entire dataset
-tokenizer = load('tokenizer.joblib')
-
+# tokenizer = load('tokenizer.joblib')
 
 # Preprocess the input
-def preprocess(text): #preprocess in ml-lib
-    sequences = tokenizer.texts_to_sequences(text)
-    padded = pad_sequences(sequences, maxlen=200)
-    return padded
+# def preprocess(text): #preprocess in ml-lib
+#     sequences = tokenizer.texts_to_sequences(text)
+#     padded = pad_sequences(sequences, maxlen=200)
+#     return padded
 
 
 @app.route('/predict/', methods=['POST'])
