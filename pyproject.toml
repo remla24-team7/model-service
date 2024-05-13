@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "model-service"
+version = "0.1.0"
+description = "model-service"
+authors = []
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^3.0.3"
+keras = "^3.3.3"
+tensorflow = "^2.16.1"
+dvc = { extras = ["gdrive"], version = "^3.50.1" }
+# lib-ml-mellekoper = { git = "https://github.com/remla24-team7/lib-ml.git", branch = "dev" }
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
