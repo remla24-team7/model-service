@@ -1,1 +1,4 @@
 __pycache__
+/model.h5
+/encoder.joblib
+/tokenizer.joblib
