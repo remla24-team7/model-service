@@ -1,5 +1,0 @@
-flask == 3.0.3
-tensorflow == 2.16.1
-lib_ml_mellekoper ==0.0.1
-joblib == 1.4.2
-numpy == 1.26.4
