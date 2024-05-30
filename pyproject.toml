@@ -11,8 +11,7 @@ flask = "^3.0.3"
 keras = "^3.3.3"
 tensorflow = "^2.16.1"
 dvc = { extras = ["gdrive"], version = "^3.50.1" }
-lib-ml = { path = "../lib-ml", develop = true }
-# lib-ml = { git = "https://github.com/remla24-team7/lib-ml.git", branch = "alex" }
+lib-ml = { git = "https://github.com/remla24-team7/lib-ml.git", tag = "v0.1.0" }
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,7 +1,11 @@
-from flask import Flask, request, jsonify
 from lib_ml.model import Model
+from flask import Flask, request, jsonify
 
-model: Model = None
+model = Model(
+    model_path="model.h5",
+    tokenizer_path="tokenizer.joblib",
+    encoder_path="encoder.joblib",
+)
 
 app = Flask(__name__)
 
@@ -9,14 +13,9 @@ app = Flask(__name__)
 @app.route("/predict", methods=["POST"])
 def predict():
     input = request.json["input"]
-    return jsonify(model.predict(input))
+    [output] = model.predict([input])
+    return jsonify(output)
 
 
 if __name__ == "__main__":
-    model = Model(
-        model_path="model.h5",
-        tokenizer_path="tokenizer.joblib",
-        encoder_path="encoder.joblib",
-    )
-
-    app.run(host="0.0.0.0", debug=True)
+    app.run()
