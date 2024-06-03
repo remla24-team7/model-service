@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "model-service"
+version = "0.1.0"
+description = "model-service"
+authors = []
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^3.0.3"
+lib-ml = { git = "https://github.com/remla24-team7/lib-ml.git", tag = "v0.1.0" }
+
+[tool.poetry.group.dev.dependencies]
+dvc = { extras = ["gdrive"], version = "^3.50.1" }
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

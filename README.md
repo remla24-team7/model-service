@@ -1,14 +1,9 @@
 # model-service
 
-To run, first install requirements
+To run locally,
 
-```
-pip install -r requirements.txt
+`poetry install`
 
-```
+`poetry run dvc pull`
 
-Then run
-
-```
-flask --app model-service run
-```
+`poetry run python -m model_service.app`
