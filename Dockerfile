@@ -10,8 +10,9 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN poetry install --no-root --no-interaction --only main
 
-COPY src ./
+COPY src README.md ./
+RUN poetry install --only-root --no-interaction
 
 EXPOSE 5000
 
-CMD ["poetry", "run", "python", "-m", "model_service.app"]
+CMD ["poetry", "run", "python", "-m", "model_service"]

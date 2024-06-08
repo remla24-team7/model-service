@@ -2,15 +2,11 @@ version: '1'
 services:
   model-service:
     container_name: backend
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    build: .
     ports:
       - 5000:5000
     volumes:
-      - ./model.h5:/app/model.h5
-      - ./tokenizer.joblib:/app/tokenizer.joblib
-      - ./encoder.joblib:/app/encoder.joblib
+      - ./model:/app/model
   prometheus:
     image: prom/prometheus:latest
     restart: always
