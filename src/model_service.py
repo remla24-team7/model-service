@@ -1,5 +1,6 @@
 from lib_ml.model import Model
 from flask import Flask, request, jsonify, Response
+from flasgger import Swagger
 from prometheus_flask_exporter import PrometheusMetrics
 import prometheus_client
 import time
@@ -12,6 +13,8 @@ model = Model(
 )
 
 app = Flask(__name__)
+app.config["SWAGGER"] = {"title": "Phishing Detection API"}
+swagger = Swagger(app)
 
 metrics = PrometheusMetrics(app)
 metrics.info('app_backend_info', 'Application backend info', version='1.0.0')
@@ -26,6 +29,36 @@ predict_time_histogram = prometheus_client.Histogram('predict_time_histogram', '
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    """
+    Predict if the input URL is legitimate or phishing
+    ---
+    tags:
+      - Prediction
+    parameters:
+      - name: input
+        in: body
+        type: string
+        required: true
+        description: The URL to be classified
+        schema:
+          type: object
+          required:
+            - input
+          properties:
+            input:
+              type: string
+              example: "https://peer.tudelft.nl"
+    responses:
+      200:
+        description: The classification result
+        schema:
+          type: string
+          enum: [legitimate, phishing]
+        examples:
+          legitimate: "legitimate"
+          phishing: "phishing"
+    """
+
     requests_counter.inc()
 
     input = request.json["input"]
@@ -47,14 +80,34 @@ def predict():
 
 @app.route("/agree", methods=["POST"])
 def agree_counter_func():
+    """
+    Indicate user agreement with the classification
+    ---
+    tags:
+      - Feedback
+    responses:
+      204:
+        description: No Content
+    """
+
     agree_counter.inc()
-    return jsonify("")
+    return Response(status=204)
 
 
 @app.route("/disagree", methods=["POST"])
 def disagree_counter_func():
+    """
+    Indicate user disagreement with the classification
+    ---
+    tags:
+      - Feedback
+    responses:
+      204:
+        description: No Content
+    """
+
     disagree_counter.inc()
-    return jsonify("")
+    return Response(status=204)
 
 
 @app.route("/metrics", methods=["GET"])
